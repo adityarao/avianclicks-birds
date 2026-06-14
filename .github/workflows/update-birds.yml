@@ -1,0 +1,49 @@
+name: Update Birds JSON
+
+on:
+  # Run every night at 00:30 UTC (06:00 IST)
+  schedule:
+    - cron: '30 0 * * *'
+
+  # Allow manual trigger from GitHub UI (Actions tab → Run workflow)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit birds.json back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate birds.json
+        env:
+          EBIRD_API_KEY: ${{ secrets.EBIRD_API_KEY }}
+        run: |
+          python scripts/process_ebird.py \
+            --api-key "$EBIRD_API_KEY" \
+            --csv     MyEBirdData.csv \
+            --out     birds.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add birds.json
+          # Only commit if there are actual changes
+          if git diff --cached --quiet; then
+            echo "No changes to birds.json — skipping commit"
+          else
+            git commit -m "chore: refresh birds.json [skip ci]"
+            git push
+          fi
