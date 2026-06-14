@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birding Locations Map – avianclicks.in</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f7f5f0;
+    color: #2c2c2c;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    background: linear-gradient(135deg, #1a3d1a 0%, #2d6a2d 60%, #4a8c3f 100%);
+    color: #fff;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  .header-title h1 { font-size: 1.2rem; font-weight: 700; }
+  .header-title p  { font-size: 0.78rem; opacity: 0.8; margin-top: 0.1rem; }
+
+  .header-stats {
+    display: flex;
+    gap: 1.2rem;
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num   { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 0.65rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ── Controls bar ── */
+  .controls {
+    background: #fff;
+    border-bottom: 1px solid #e0dbd0;
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .controls label { font-size: 0.85rem; color: #555; font-weight: 500; }
+  .controls select {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #c8c0b0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    background: #fafaf7;
+    color: #2c2c2c;
+    cursor: pointer;
+    outline: none;
+  }
+  .controls select:focus { border-color: #2d6a2d; }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: #666;
+  }
+  .legend-bar {
+    width: 100px;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #FFD700, #FF4500, #CC0000);
+    border: 1px solid #ccc;
+  }
+
+  /* ── Map ── */
+  #map {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+  }
+
+  /* ── Loading overlay ── */
+  #overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(247,245,240,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-size: 1rem;
+    color: #555;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  #overlay.hidden { display: none; }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid #ddd;
+    border-top-color: #2d6a2d;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Tooltip ── */
+  .loc-tooltip {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    min-width: 160px;
+  }
+  .loc-tooltip strong { font-size: 0.88rem; display: block; margin-bottom: 0.2rem; color: #1a3d1a; }
+  .loc-tooltip a {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    color: #2d6a2d;
+    text-decoration: none;
+    border: 1px solid #9ecb9e;
+    border-radius: 4px;
+    padding: 0.1rem 0.45rem;
+  }
+  .loc-tooltip a:hover { background: #e8f4e8; }
+</style>
+</head>
+<body>
+
+<div id="overlay">
+  <div class="spinner"></div>
+  <span>Loading locations…</span>
+</div>
+
+<header class="page-header">
+  <div class="header-title">
+    <h1>🗺️ Birding Locations Map</h1>
+    <p>Checklist submissions mapped from my eBird data</p>
+  </div>
+  <div class="header-stats">
+    <div class="stat">
+      <div class="stat-num" id="statLocs">—</div>
+      <div class="stat-label">Locations</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statVisits">—</div>
+      <div class="stat-label">Checklists</div>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <label for="timeFilter">Show visits from:</label>
+  <select id="timeFilter">
+    <option value="1d">Last 24 hours</option>
+    <option value="1w">Last week</option>
+    <option value="1m">Last month</option>
+    <option value="3m">Last 3 months</option>
+    <option value="6m">Last 6 months</option>
+    <option value="1y" selected>Last 1 year</option>
+    <option value="all">All time</option>
+  </select>
+  <div class="legend">
+    <span>1 visit</span>
+    <div class="legend-bar"></div>
+    <span>Most visited</span>
+  </div>
+</div>
+
+<div id="map"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const LOCATIONS_JSON_URL =
+  "https://raw.githubusercontent.com/adityarao/avianclicks-birds/main/locations.json";
+// ─────────────────────────────────────────────────────────────────────────────
+
+const overlay    = document.getElementById("overlay");
+const timeFilter = document.getElementById("timeFilter");
+const statLocs   = document.getElementById("statLocs");
+const statVisits = document.getElementById("statVisits");
+
+// ── Init map ──────────────────────────────────────────────────────────────────
+const map = L.map("map", { zoomControl: true }).setView([20, 0], 2);
+
+L.tileLayer(
+  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+  {
+    attribution:
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 19,
+    subdomains: "abcd",
+  }
+).addTo(map);
+
+// ── Colour scale (logarithmic, yellow → orange → dark red) ───────────────────
+function visitColour(count, maxCount) {
+  if (!maxCount || maxCount <= 1) return "#FFD700";
+  const t = Math.log(count) / Math.log(maxCount); // 0..1
+
+  // Two-stop gradient: #FFD700 → #FF4500 → #CC0000
+  const stops = [
+    [255, 215,   0],  // yellow
+    [255,  69,   0],  // orange-red
+    [204,   0,   0],  // dark red
+  ];
+  const seg  = t < 0.5 ? 0 : 1;
+  const frac = t < 0.5 ? t * 2 : (t - 0.5) * 2;
+  const [r1, g1, b1] = stops[seg];
+  const [r2, g2, b2] = stops[seg + 1];
+  const r = Math.round(r1 + frac * (r2 - r1));
+  const g = Math.round(g1 + frac * (g2 - g1));
+  const b = Math.round(b1 + frac * (b2 - b1));
+  return `rgb(${r},${g},${b})`;
+}
+
+// Pin radius: small bump for high-visit spots (6px base, up to 11px)
+function visitRadius(count, maxCount) {
+  if (!maxCount || maxCount <= 1) return 6;
+  const t = Math.log(count) / Math.log(maxCount);
+  return 6 + Math.round(t * 5);
+}
+
+// ── Date threshold ────────────────────────────────────────────────────────────
+function getThreshold(filter) {
+  const now = new Date();
+  switch (filter) {
+    case "1d":  return new Date(now - 86400000);
+    case "1w":  return new Date(now - 7 * 86400000);
+    case "1m":  { const d = new Date(now); d.setMonth(d.getMonth() - 1);  return d; }
+    case "3m":  { const d = new Date(now); d.setMonth(d.getMonth() - 3);  return d; }
+    case "6m":  { const d = new Date(now); d.setMonth(d.getMonth() - 6);  return d; }
+    case "1y":  { const d = new Date(now); d.setFullYear(d.getFullYear() - 1); return d; }
+    default:    return new Date("1900-01-01");
+  }
+}
+
+// ── Marker layer ──────────────────────────────────────────────────────────────
+let markerLayer = L.layerGroup().addTo(map);
+let allData     = [];
+
+function renderMarkers(filter) {
+  markerLayer.clearLayers();
+  const threshold = getThreshold(filter);
+
+  // Filter: keep locations with at least one visit after threshold
+  const active = allData
+    .map(loc => {
+      const count = loc.dates.filter(d => new Date(d) >= threshold).length;
+      return count > 0 ? { ...loc, count } : null;
+    })
+    .filter(Boolean);
+
+  const maxCount = active.length ? Math.max(...active.map(l => l.count)) : 1;
+
+  active.forEach(loc => {
+    const colour = visitColour(loc.count, maxCount);
+    const radius = visitRadius(loc.count, maxCount);
+    const ebirdUrl = loc.locId
+      ? `https://ebird.org/hotspot/${loc.locId}`
+      : `https://ebird.org/search?q=${encodeURIComponent(loc.name)}`;
+
+    const marker = L.circleMarker([loc.lat, loc.lng], {
+      radius,
+      fillColor:   colour,
+      color:       "#fff",
+      weight:      1.5,
+      opacity:     1,
+      fillOpacity: 0.88,
+    });
+
+    marker.bindTooltip(`
+      <div class="loc-tooltip">
+        <strong>${loc.name}</strong>
+        ${loc.count} checklist${loc.count !== 1 ? "s" : ""} in window<br>
+        <a href="${ebirdUrl}" target="_blank" rel="noopener">View on eBird ↗</a>
+      </div>`, { sticky: true });
+
+    markerLayer.addLayer(marker);
+  });
+
+  // Update stats
+  const totalVisits = active.reduce((s, l) => s + l.count, 0);
+  statLocs.textContent   = active.length.toLocaleString();
+  statVisits.textContent = totalVisits.toLocaleString();
+
+  // Fit map to visible markers (skip if none)
+  if (active.length > 0) {
+    const bounds = L.latLngBounds(active.map(l => [l.lat, l.lng]));
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10 });
+  }
+}
+
+// ── Fetch & boot ──────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const resp = await fetch(LOCATIONS_JSON_URL);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    allData = await resp.json();
+    overlay.classList.add("hidden");
+    renderMarkers(timeFilter.value);
+  } catch (e) {
+    overlay.innerHTML = `<span style="color:#b33">Could not load locations: ${e.message}</span>`;
+  }
+}
+
+timeFilter.addEventListener("change", () => renderMarkers(timeFilter.value));
+
+init();
+</script>
+</body>
+</html>
