@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My India Bird List – avianclicks.in</title>
+<style>
+  /* ── Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f7f5f0;
+    color: #2c2c2c;
+    line-height: 1.5;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    background: linear-gradient(135deg, #1a3d1a 0%, #2d6a2d 60%, #4a8c3f 100%);
+    color: #fff;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  .page-header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
+  .page-header p  { margin-top: 0.4rem; font-size: 0.95rem; opacity: 0.85; }
+
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num  { font-size: 2rem; font-weight: 800; line-height: 1; }
+  .stat-label{ font-size: 0.75rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ── Controls ── */
+  .controls {
+    padding: 1rem 1.5rem;
+    background: #fff;
+    border-bottom: 1px solid #e0dbd0;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .controls input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid #c8c0b0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #fafaf7;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .controls input:focus { border-color: #2d6a2d; box-shadow: 0 0 0 3px rgba(45,106,45,0.12); }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #c8c0b0;
+    background: #fff;
+    color: #2c2c2c;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: #f0ede5; border-color: #a09880; }
+  .btn.active { background: #2d6a2d; color: #fff; border-color: #2d6a2d; }
+
+  .match-count { font-size: 0.82rem; color: #666; margin-left: auto; white-space: nowrap; }
+
+  /* ── Main ── */
+  main { max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem 3rem; }
+
+  /* ── Order accordion ── */
+  .order-block {
+    margin-bottom: 0.6rem;
+    border: 1px solid #ddd8cc;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .order-block.hidden { display: none; }
+
+  .order-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    background: #f0ede5;
+    transition: background 0.15s;
+  }
+  .order-header:hover { background: #e8e3d8; }
+
+  .order-name   { font-weight: 700; font-size: 1rem; color: #1a3d1a; }
+  .order-count  { font-size: 0.82rem; color: #666; margin-left: 0.5rem; }
+  .order-chevron{ font-size: 0.8rem; color: #888; transition: transform 0.2s; }
+  .order-block.open .order-chevron { transform: rotate(90deg); }
+
+  .order-body { display: none; }
+  .order-block.open .order-body { display: block; }
+
+  /* ── Family block ── */
+  .family-block { border-top: 1px solid #ede8de; }
+  .family-block.hidden { display: none; }
+
+  .family-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem 0.45rem 1.25rem;
+    background: #faf8f3;
+    border-bottom: 1px solid #ede8de;
+    cursor: pointer;
+    user-select: none;
+  }
+  .family-header:hover { background: #f2efe6; }
+  .family-name     { font-weight: 600; font-size: 0.9rem; color: #2d5a2d; }
+  .family-sci      { font-size: 0.78rem; color: #888; font-style: italic; }
+  .family-count    { font-size: 0.78rem; color: #999; margin-left: auto; }
+  .family-chevron  { font-size: 0.7rem; color: #aaa; margin-left: 0.3rem; transition: transform 0.2s; }
+  .family-block.open .family-chevron { transform: rotate(90deg); }
+
+  .family-body { display: none; }
+  .family-block.open .family-body { display: block; }
+
+  /* ── Species rows ── */
+  .species-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.38rem 1rem 0.38rem 2rem;
+    border-bottom: 1px solid #f2ede3;
+    transition: background 0.1s;
+  }
+  .species-row:last-child { border-bottom: none; }
+  .species-row:hover { background: #f9f6ef; }
+  .species-row.hidden { display: none; }
+
+  .sp-com  { font-size: 0.88rem; color: #222; flex: 1; min-width: 0; }
+  .sp-sci  { font-size: 0.78rem; color: #888; font-style: italic; flex: 1; min-width: 0; }
+  .sp-link {
+    font-size: 0.75rem;
+    color: #2d6a2d;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid #9ecb9e;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .sp-link:hover { background: #e8f4e8; }
+
+  /* ── Loading / error ── */
+  #status {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  #status.error { color: #b33; }
+
+  /* ── Footer ── */
+  .page-footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.78rem;
+    color: #999;
+    border-top: 1px solid #e0dbd0;
+    margin-top: 1rem;
+  }
+  .page-footer a { color: #2d6a2d; text-decoration: none; }
+  .page-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>🦅 My India Bird List</h1>
+  <p>Birds I've seen in India, arranged by taxonomy (Clements / eBird order)</p>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num" id="statSeen">—</div>
+      <div class="stat-label">Species Seen</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statOrders">—</div>
+      <div class="stat-label">Orders</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statUpdated">—</div>
+      <div class="stat-label">Last Updated</div>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <input type="search" id="searchBox" placeholder="Search species or family…" autocomplete="off">
+  <button class="btn" id="btnExpandAll">Expand All</button>
+  <button class="btn" id="btnCollapseAll">Collapse All</button>
+  <span class="match-count" id="matchCount"></span>
+</div>
+
+<main id="main">
+  <div id="status">Loading bird list…</div>
+</main>
+
+<footer class="page-footer">
+  Data source: <a href="https://ebird.org" target="_blank" rel="noopener">eBird</a> (Cornell Lab of Ornithology) ·
+  <a href="https://avianclicks.in" target="_blank" rel="noopener">avianclicks.in</a>
+</footer>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+// Replace YOUR_GITHUB_USERNAME and YOUR_REPO_NAME with your actual values.
+// Example: "https://raw.githubusercontent.com/adityarrao/avianclicks-birds/main/birds.json"
+const BIRDS_JSON_URL =
+  "https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/birds.json";
+// ─────────────────────────────────────────────────────────────────────────────
+
+const mainEl      = document.getElementById("main");
+const statusEl    = document.getElementById("status");
+const searchBox   = document.getElementById("searchBox");
+const matchCount  = document.getElementById("matchCount");
+const btnExpand   = document.getElementById("btnExpandAll");
+const btnCollapse = document.getElementById("btnCollapseAll");
+
+let allData = null;
+
+// ── Fetch & render ────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const resp = await fetch(BIRDS_JSON_URL);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    allData = await resp.json();
+    render(allData);
+  } catch (e) {
+    statusEl.className = "error";
+    statusEl.textContent = `Could not load bird list: ${e.message}`;
+  }
+}
+
+function render(data) {
+  // Stats
+  document.getElementById("statSeen").textContent    = data.total_seen.toLocaleString();
+  document.getElementById("statOrders").textContent  = data.orders.length;
+  const d = new Date(data.generated);
+  document.getElementById("statUpdated").textContent =
+    d.toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" });
+
+  // Build DOM
+  const frag = document.createDocumentFragment();
+  statusEl.remove();
+
+  data.orders.forEach(order => {
+    const orderBlock = document.createElement("div");
+    orderBlock.className = "order-block";
+    orderBlock.dataset.order = order.name.toLowerCase();
+
+    // Order header
+    const oh = document.createElement("div");
+    oh.className = "order-header";
+    oh.innerHTML = `
+      <span>
+        <span class="order-name">${order.name}</span>
+        <span class="order-count">${order.count} sp.</span>
+      </span>
+      <span class="order-chevron">▶</span>`;
+    oh.addEventListener("click", () => orderBlock.classList.toggle("open"));
+    orderBlock.appendChild(oh);
+
+    // Order body
+    const ob = document.createElement("div");
+    ob.className = "order-body";
+
+    order.families.forEach(family => {
+      const famBlock = document.createElement("div");
+      famBlock.className = "family-block";
+      famBlock.dataset.family = family.name.toLowerCase();
+
+      const fh = document.createElement("div");
+      fh.className = "family-header";
+      fh.innerHTML = `
+        <span class="family-name">${family.name}</span>
+        <span class="family-sci">${family.sciName}</span>
+        <span class="family-count">${family.species.length} sp.</span>
+        <span class="family-chevron">▶</span>`;
+      fh.addEventListener("click", () => famBlock.classList.toggle("open"));
+      famBlock.appendChild(fh);
+
+      const fb = document.createElement("div");
+      fb.className = "family-body";
+
+      family.species.forEach(sp => {
+        const row = document.createElement("div");
+        row.className = "species-row";
+        row.dataset.com = sp.comName.toLowerCase();
+        row.dataset.sci = sp.sciName.toLowerCase();
+
+        const ebirdHref = sp.speciesCode
+          ? `https://ebird.org/species/${sp.speciesCode}`
+          : `https://ebird.org/search?q=${encodeURIComponent(sp.sciName)}`;
+
+        row.innerHTML = `
+          <span class="sp-com">${sp.comName}</span>
+          <span class="sp-sci">${sp.sciName}</span>
+          <a class="sp-link" href="${ebirdHref}" target="_blank" rel="noopener">eBird ↗</a>`;
+        fb.appendChild(row);
+      });
+
+      famBlock.appendChild(fb);
+      ob.appendChild(famBlock);
+    });
+
+    orderBlock.appendChild(ob);
+    frag.appendChild(orderBlock);
+  });
+
+  mainEl.appendChild(frag);
+  updateMatchCount();
+}
+
+// ── Search / filter ───────────────────────────────────────────────────────────
+function filterList(query) {
+  const q = query.trim().toLowerCase();
+  let visibleSp = 0;
+
+  document.querySelectorAll(".order-block").forEach(orderBlock => {
+    let orderHasMatch = false;
+
+    orderBlock.querySelectorAll(".family-block").forEach(famBlock => {
+      let famHasMatch = false;
+
+      famBlock.querySelectorAll(".species-row").forEach(row => {
+        const match = !q
+          || row.dataset.com.includes(q)
+          || row.dataset.sci.includes(q);
+        row.classList.toggle("hidden", !match);
+        if (match) { famHasMatch = true; visibleSp++; }
+      });
+
+      // Also match on family name itself
+      if (q && famBlock.dataset.family.includes(q)) {
+        famBlock.querySelectorAll(".species-row.hidden").forEach(r => {
+          r.classList.remove("hidden");
+          visibleSp++;
+          famHasMatch = true;
+        });
+      }
+
+      famBlock.classList.toggle("hidden", !famHasMatch);
+      if (famHasMatch) {
+        orderHasMatch = true;
+        if (q) famBlock.classList.add("open");
+      }
+    });
+
+    orderBlock.classList.toggle("hidden", !orderHasMatch);
+    if (orderHasMatch && q) orderBlock.classList.add("open");
+  });
+
+  return visibleSp;
+}
+
+function updateMatchCount() {
+  const q = searchBox.value;
+  if (!allData) return;
+  const n = filterList(q);
+  matchCount.textContent = q ? `${n} match${n !== 1 ? "es" : ""}` : "";
+}
+
+searchBox.addEventListener("input", updateMatchCount);
+
+// ── Expand / collapse all ─────────────────────────────────────────────────────
+btnExpand.addEventListener("click", () => {
+  document.querySelectorAll(".order-block, .family-block").forEach(el => el.classList.add("open"));
+});
+btnCollapse.addEventListener("click", () => {
+  document.querySelectorAll(".order-block, .family-block").forEach(el => el.classList.remove("open"));
+});
+
+init();
+</script>
+</body>
+</html>
