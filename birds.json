@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-04T15:12:02.407930+00:00",
-  "total_seen": 913,
+  "generated": "2026-07-04T15:24:58.130128+00:00",
+  "total_seen": 939,
   "orders": [
     {
       "name": "Anseriformes",
@@ -131,7 +131,7 @@
     },
     {
       "name": "Galliformes",
-      "count": 22,
+      "count": 23,
       "families": [
         {
           "name": "Pheasants, Grouse, and Allies",
@@ -156,6 +156,11 @@
               "comName": "Blyth's Tragopan",
               "sciName": "Tragopan blythii",
               "speciesCode": "blytra1"
+            },
+            {
+              "comName": "Himalayan Monal",
+              "sciName": "Lophophorus impejanus",
+              "speciesCode": "himmon1"
             },
             {
               "comName": "Kalij Pheasant",
@@ -598,7 +603,7 @@
     },
     {
       "name": "Apodiformes",
-      "count": 8,
+      "count": 9,
       "families": [
         {
           "name": "Swifts",
@@ -623,6 +628,11 @@
               "comName": "Edible-nest Swiftlet (White-nest)",
               "sciName": "Aerodramus fuciphagus [fuciphagus Group]",
               "speciesCode": "y00731"
+            },
+            {
+              "comName": "Alpine Swift",
+              "sciName": "Tachymarptis melba",
+              "speciesCode": "alpswi1"
             },
             {
               "comName": "Common Swift",
@@ -754,7 +764,7 @@
     },
     {
       "name": "Charadriiformes",
-      "count": 70,
+      "count": 71,
       "families": [
         {
           "name": "Thick-knees",
@@ -785,6 +795,17 @@
               "comName": "Pied Avocet",
               "sciName": "Recurvirostra avosetta",
               "speciesCode": "pieavo1"
+            }
+          ]
+        },
+        {
+          "name": "Ibisbill",
+          "sciName": "Ibidorhynchidae",
+          "species": [
+            {
+              "comName": "Ibisbill",
+              "sciName": "Ibidorhyncha struthersii",
+              "speciesCode": "ibisbi1"
             }
           ]
         },
@@ -1354,7 +1375,7 @@
     },
     {
       "name": "Pelecaniformes",
-      "count": 21,
+      "count": 22,
       "families": [
         {
           "name": "Ibises and Spoonbills",
@@ -1395,6 +1416,11 @@
               "comName": "Cinnamon Bittern",
               "sciName": "Botaurus cinnamomeus",
               "speciesCode": "cinbit1"
+            },
+            {
+              "comName": "Little Bittern",
+              "sciName": "Botaurus minutus",
+              "speciesCode": "litbit1"
             },
             {
               "comName": "Yellow Bittern",
@@ -1483,7 +1509,7 @@
     },
     {
       "name": "Accipitriformes",
-      "count": 43,
+      "count": 44,
       "families": [
         {
           "name": "Osprey",
@@ -1709,6 +1735,11 @@
               "comName": "Upland Buzzard",
               "sciName": "Buteo hemilasius",
               "speciesCode": "uplbuz1"
+            },
+            {
+              "comName": "Himalayan Buzzard",
+              "sciName": "Buteo refectus",
+              "speciesCode": "combuz9"
             }
           ]
         }
@@ -1716,7 +1747,7 @@
     },
     {
       "name": "Strigiformes",
-      "count": 26,
+      "count": 27,
       "families": [
         {
           "name": "Barn-Owls",
@@ -1839,6 +1870,11 @@
               "speciesCode": "brwowl1"
             },
             {
+              "comName": "Tawny Owl",
+              "sciName": "Strix aluco",
+              "speciesCode": "tawowl1"
+            },
+            {
               "comName": "Himalayan Owl",
               "sciName": "Strix nivicolum",
               "speciesCode": "himowl1"
@@ -1959,7 +1995,7 @@
     },
     {
       "name": "Coraciiformes",
-      "count": 19,
+      "count": 20,
       "families": [
         {
           "name": "Bee-eaters",
@@ -1984,6 +2020,11 @@
               "comName": "Blue-tailed Bee-eater",
               "sciName": "Merops philippinus",
               "speciesCode": "btbeat1"
+            },
+            {
+              "comName": "European Bee-eater",
+              "sciName": "Merops apiaster",
+              "speciesCode": "eubeat1"
             },
             {
               "comName": "Chestnut-headed Bee-eater",
@@ -2078,7 +2119,7 @@
     },
     {
       "name": "Piciformes",
-      "count": 37,
+      "count": 38,
       "families": [
         {
           "name": "Asian Barbets",
@@ -2180,6 +2221,11 @@
               "comName": "Yellow-crowned Woodpecker",
               "sciName": "Leiopicus mahrattensis",
               "speciesCode": "yecwoo1"
+            },
+            {
+              "comName": "Brown-fronted Woodpecker",
+              "sciName": "Dendrocoptes auriceps",
+              "speciesCode": "brfwoo1"
             },
             {
               "comName": "Rufous-bellied Woodpecker",
@@ -2344,7 +2390,7 @@
     },
     {
       "name": "Psittaciformes",
-      "count": 7,
+      "count": 8,
       "families": [
         {
           "name": "Old World Parrots",
@@ -2359,6 +2405,11 @@
               "comName": "Rose-ringed Parakeet",
               "sciName": "Psittacula krameri",
               "speciesCode": "rorpar"
+            },
+            {
+              "comName": "Slaty-headed Parakeet",
+              "sciName": "Psittacula himalayana",
+              "speciesCode": "slhpar1"
             },
             {
               "comName": "Plum-headed Parakeet",
@@ -2391,7 +2442,7 @@
     },
     {
       "name": "Passeriformes",
-      "count": 522,
+      "count": 539,
       "families": [
         {
           "name": "Asian and Grauer's Broadbills",
@@ -2841,6 +2892,11 @@
               "speciesCode": "eurnut4"
             },
             {
+              "comName": "Kashmir Nutcracker (Large-spotted Nutcracker)",
+              "sciName": "Nucifraga multipunctata",
+              "speciesCode": "sponut1"
+            },
+            {
               "comName": "Red-billed Chough",
               "sciName": "Pyrrhocorax pyrrhocorax",
               "speciesCode": "rebcho1"
@@ -2849,6 +2905,11 @@
               "comName": "Yellow-billed Chough (Alpine Chough)",
               "sciName": "Pyrrhocorax graculus",
               "speciesCode": "yebcho1"
+            },
+            {
+              "comName": "Eurasian Jackdaw",
+              "sciName": "Coloeus monedula",
+              "speciesCode": "eurjac"
             },
             {
               "comName": "House Crow",
@@ -2911,6 +2972,11 @@
               "comName": "Coal Tit",
               "sciName": "Periparus ater",
               "speciesCode": "coatit2"
+            },
+            {
+              "comName": "Rufous-naped Tit (Black-breasted Tit)",
+              "sciName": "Periparus rufonuchalis",
+              "speciesCode": "bkbtit2"
             },
             {
               "comName": "Rufous-vented Tit",
@@ -3409,6 +3475,11 @@
               "comName": "Lemon-rumped Warbler",
               "sciName": "Phylloscopus chloronotus",
               "speciesCode": "parwar1"
+            },
+            {
+              "comName": "Tytler's Leaf Warbler",
+              "sciName": "Phylloscopus tytleri",
+              "speciesCode": "tylwar1"
             },
             {
               "comName": "Sulphur-bellied Warbler",
@@ -4167,6 +4238,11 @@
           "sciName": "Sittidae",
           "species": [
             {
+              "comName": "White-cheeked Nuthatch",
+              "sciName": "Sitta leucopsis",
+              "speciesCode": "whcnut1"
+            },
+            {
               "comName": "Beautiful Nuthatch",
               "sciName": "Sitta formosa",
               "speciesCode": "beanut1"
@@ -4190,6 +4266,11 @@
               "comName": "Chestnut-bellied Nuthatch",
               "sciName": "Sitta cinnamoventris",
               "speciesCode": "chbnut3"
+            },
+            {
+              "comName": "Kashmir Nuthatch",
+              "sciName": "Sitta cashmirensis",
+              "speciesCode": "kasnut1"
             }
           ]
         },
@@ -4208,6 +4289,16 @@
           "name": "Treecreepers",
           "sciName": "Certhiidae",
           "species": [
+            {
+              "comName": "Hodgson's Treecreeper (Eurasian Treecreeper)",
+              "sciName": "Certhia hodgsoni",
+              "speciesCode": "eurtre3"
+            },
+            {
+              "comName": "Bar-tailed Treecreeper",
+              "sciName": "Certhia himalayana",
+              "speciesCode": "battre1"
+            },
             {
               "comName": "Rusty-flanked Treecreeper",
               "sciName": "Certhia nipalensis",
@@ -4419,6 +4510,11 @@
               "speciesCode": "whcbla1"
             },
             {
+              "comName": "Chestnut Thrush",
+              "sciName": "Turdus rubrocanus",
+              "speciesCode": "chethr1"
+            },
+            {
               "comName": "Red-throated Thrush",
               "sciName": "Turdus ruficollis",
               "speciesCode": "retthr1"
@@ -4623,6 +4719,11 @@
               "comName": "Siberian Rubythroat",
               "sciName": "Calliope calliope",
               "speciesCode": "sibrub"
+            },
+            {
+              "comName": "Himalayan Rubythroat",
+              "sciName": "Calliope pectoralis",
+              "speciesCode": "himrub1"
             },
             {
               "comName": "Chinese Rubythroat",
@@ -5195,6 +5296,11 @@
           "sciName": "Fringillidae",
           "species": [
             {
+              "comName": "Black-and-yellow Grosbeak",
+              "sciName": "Mycerobas icterioides",
+              "speciesCode": "baygro1"
+            },
+            {
               "comName": "Common Rosefinch",
               "sciName": "Carpodacus erythrinus",
               "speciesCode": "comros"
@@ -5208,6 +5314,11 @@
               "comName": "Dark-rumped Rosefinch",
               "sciName": "Carpodacus edwardsii",
               "speciesCode": "darros1"
+            },
+            {
+              "comName": "Pink-browed Rosefinch",
+              "sciName": "Carpodacus rodochroa",
+              "speciesCode": "pibros2"
             },
             {
               "comName": "Great Rosefinch",
@@ -5225,6 +5336,11 @@
               "speciesCode": "brobul1"
             },
             {
+              "comName": "Orange Bullfinch",
+              "sciName": "Pyrrhula aurantiaca",
+              "speciesCode": "orabul1"
+            },
+            {
               "comName": "Red-headed Bullfinch",
               "sciName": "Pyrrhula erythrocephala",
               "speciesCode": "rehbul1"
@@ -5238,6 +5354,11 @@
               "comName": "Gold-naped Finch",
               "sciName": "Pyrrhoplectes epauletta",
               "speciesCode": "gonfin1"
+            },
+            {
+              "comName": "Spectacled Finch",
+              "sciName": "Callacanthis burtoni",
+              "speciesCode": "spefin1"
             },
             {
               "comName": "Dark-breasted Rosefinch",
@@ -5263,6 +5384,11 @@
               "comName": "Twite",
               "sciName": "Linaria flavirostris",
               "speciesCode": "twite1"
+            },
+            {
+              "comName": "Grey-crowned Goldfinch",
+              "sciName": "Carduelis caniceps",
+              "speciesCode": "eurgol2"
             },
             {
               "comName": "Tibetan Serin",
@@ -5291,9 +5417,19 @@
               "speciesCode": "rehbun1"
             },
             {
+              "comName": "Chestnut-eared Bunting",
+              "sciName": "Emberiza fucata",
+              "speciesCode": "chebun2"
+            },
+            {
               "comName": "Rock Bunting",
               "sciName": "Emberiza cia",
               "speciesCode": "rocbun1"
+            },
+            {
+              "comName": "White-capped Bunting (Chestnut-breasted Bunting)",
+              "sciName": "Emberiza stewarti",
+              "speciesCode": "chbbun1"
             },
             {
               "comName": "Grey-necked Bunting (Grey-hooded Bunting)",
@@ -5331,7 +5467,7 @@
     },
     {
       "name": "Unmatched",
-      "count": 62,
+      "count": 63,
       "families": [
         {
           "name": "Unmatched",
@@ -5585,6 +5721,11 @@
             {
               "comName": "Jungle/Yellow-billed Babbler",
               "sciName": "Argya striata/affinis",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Turdus thrush sp.",
+              "sciName": "Turdus sp.",
               "speciesCode": ""
             },
             {
