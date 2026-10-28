@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-27T05:19:22.072056+00:00",
-  "total_seen": 939,
+  "generated": "2026-10-28T05:58:40.357673+00:00",
+  "total_seen": 930,
   "orders": [
     {
       "name": "Anseriformes",
@@ -642,7 +642,7 @@
             {
               "comName": "Little Swift (Indian House Swift)",
               "sciName": "Apus affinis",
-              "speciesCode": "litswi1"
+              "speciesCode": "y00960"
             },
             {
               "comName": "Asian Palm Swift",
@@ -2442,7 +2442,7 @@
     },
     {
       "name": "Passeriformes",
-      "count": 539,
+      "count": 530,
       "families": [
         {
           "name": "Asian and Grauer's Broadbills",
@@ -4312,17 +4312,6 @@
           ]
         },
         {
-          "name": "Wrens",
-          "sciName": "Troglodytidae",
-          "species": [
-            {
-              "comName": "Eurasian Wren (Winter Wren)",
-              "sciName": "Troglodytes troglodytes",
-              "speciesCode": "winwre4"
-            }
-          ]
-        },
-        {
           "name": "Spotted Elachura",
           "sciName": "Elachuridae",
           "species": [
@@ -4543,7 +4532,7 @@
             {
               "comName": "Spotted Flycatcher",
               "sciName": "Muscicapa striata",
-              "speciesCode": "spofly1"
+              "speciesCode": "spofly2"
             },
             {
               "comName": "Rufous-tailed Scrub-Robin",
@@ -4688,7 +4677,7 @@
             {
               "comName": "Blue Whistling-Thrush",
               "sciName": "Myophonus caeruleus",
-              "speciesCode": "blwthr1"
+              "speciesCode": "bluwht1"
             },
             {
               "comName": "Little Forktail",
@@ -4698,7 +4687,7 @@
             {
               "comName": "White-crowned Forktail",
               "sciName": "Enicurus leschenaulti",
-              "speciesCode": "whcfor1"
+              "speciesCode": "whcfor5"
             },
             {
               "comName": "Spotted Forktail",
@@ -5402,21 +5391,6 @@
           "sciName": "Emberizidae",
           "species": [
             {
-              "comName": "Crested Bunting",
-              "sciName": "Emberiza lathami",
-              "speciesCode": "crebun1"
-            },
-            {
-              "comName": "Black-headed Bunting",
-              "sciName": "Emberiza melanocephala",
-              "speciesCode": "blhbun1"
-            },
-            {
-              "comName": "Red-headed Bunting",
-              "sciName": "Emberiza bruniceps",
-              "speciesCode": "rehbun1"
-            },
-            {
               "comName": "Chestnut-eared Bunting",
               "sciName": "Emberiza fucata",
               "speciesCode": "chebun2"
@@ -5435,31 +5409,6 @@
               "comName": "Grey-necked Bunting (Grey-hooded Bunting)",
               "sciName": "Emberiza buchanani",
               "speciesCode": "gyhbun1"
-            },
-            {
-              "comName": "Striolated Bunting (House Bunting)",
-              "sciName": "Emberiza striolata",
-              "speciesCode": "houbun2"
-            },
-            {
-              "comName": "Reed Bunting",
-              "sciName": "Emberiza schoeniclus",
-              "speciesCode": "reebun"
-            },
-            {
-              "comName": "Yellow-breasted Bunting",
-              "sciName": "Emberiza aureola",
-              "speciesCode": "yebbun"
-            },
-            {
-              "comName": "Little Bunting",
-              "sciName": "Emberiza pusilla",
-              "speciesCode": "litbun"
-            },
-            {
-              "comName": "Black-faced Bunting",
-              "sciName": "Emberiza spodocephala",
-              "speciesCode": "bkfbun1"
             }
           ]
         }
@@ -5467,7 +5416,7 @@
     },
     {
       "name": "Unmatched",
-      "count": 63,
+      "count": 72,
       "families": [
         {
           "name": "Unmatched",
@@ -5724,6 +5673,11 @@
               "speciesCode": ""
             },
             {
+              "comName": "Eurasian Wren (Winter Wren)",
+              "sciName": "Troglodytes troglodytes",
+              "speciesCode": ""
+            },
+            {
               "comName": "Turdus thrush sp.",
               "sciName": "Turdus sp.",
               "speciesCode": ""
@@ -5781,6 +5735,46 @@
             {
               "comName": "finch sp.",
               "sciName": "Fringillidae sp.",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Crested Bunting",
+              "sciName": "Emberiza lathami",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Black-headed Bunting",
+              "sciName": "Emberiza melanocephala",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Red-headed Bunting",
+              "sciName": "Emberiza bruniceps",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Striolated Bunting (House Bunting)",
+              "sciName": "Emberiza striolata",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Reed Bunting",
+              "sciName": "Emberiza schoeniclus",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Yellow-breasted Bunting",
+              "sciName": "Emberiza aureola",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Little Bunting",
+              "sciName": "Emberiza pusilla",
+              "speciesCode": ""
+            },
+            {
+              "comName": "Black-faced Bunting",
+              "sciName": "Emberiza spodocephala",
               "speciesCode": ""
             },
             {
